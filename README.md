@@ -1,1 +1,1 @@
-# VTK plugin for VTK
+# VTK plugin for Geogram

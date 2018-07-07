@@ -39,24 +39,25 @@
  */
  
  
-#include <OGF/vtk/common/common.h>
+#include <OGF/GEOvtk/common/common.h>
 #include <OGF/basic/modules/module.h>
 #include <OGF/gom/types/gom_defs.h>
 #include <OGF/scene_graph/types/scene_graph_library.h>
+#include <OGF/mesh/grob/mesh_grob.h>
 
-#include <OGF/vtk/algo/vtk_io.h>
+#include <OGF/GEOvtk/algo/vtk_io.h>
 
 // [includes insertion point] (do not delete this line)
 
 namespace OGF {
 
-    void vtk_libinit::initialize() {
+    void GEOvtk_libinit::initialize() {
 
-        Logger::out("Init") << "<vtk>" << std::endl;
+        Logger::out("Init") << "<GEOvtk>" << std::endl;
 
         //_____________________________________________________________
 
-        gom_package_initialize(vtk) ;
+        gom_package_initialize(GEOvtk) ;
 
         // [source insertion point] (do not delete this line)
 
@@ -65,40 +66,41 @@ namespace OGF {
         //_____________________________________________________________
 
          
-        vtk::vtk_io_initialize();
+        GEOvtk::vtk_io_initialize();
+        OGF::MeshGrob::register_geogram_file_extensions();
         Module* module_info = new Module;
-        module_info->set_name("vtk");
+        module_info->set_name("GEOvtk");
         module_info->set_vendor("Antoine Mazuyer");
         module_info->set_version("3-1.x");
         module_info->set_info(
                 "I/O support for VTK file"
         );
-        Module::bind_module("vtk", module_info);
+        Module::bind_module("GEOvtk", module_info);
 
-        Logger::out("Init") << "</vtk>" << std::endl;
+        Logger::out("Init") << "</GEOvtk>" << std::endl;
     }
     
-    void vtk_libinit::terminate() {
-        Logger::out("Init") << "<~vtl>" << std::endl;
+    void GEOvtk_libinit::terminate() {
+        Logger::out("Init") << "<~GEOvtk>" << std::endl;
         //_____________________________________________________________
 
         // Insert package termination stuff here ...
 
         //_____________________________________________________________
 
-        Module::unbind_module("vtk");
-        Logger::out("Init") << "</~vtk>" << std::endl;
+        Module::unbind_module("GEOvtk");
+        Logger::out("Init") << "</~GEOvtk>" << std::endl;
     }
     
-    vtk_libinit::vtk_libinit() {
+    GEOvtk_libinit::GEOvtk_libinit() {
         increment_users();
     }
 
-    vtk_libinit::~vtk_libinit() {
+    GEOvtk_libinit::~GEOvtk_libinit() {
         decrement_users();
     }
     
-    void vtk_libinit::increment_users() {
+    void GEOvtk_libinit::increment_users() {
         // Note that count_ is incremented before calling
         // initialize, else it would still be equal to
         // zero at module initialization time, which 
@@ -109,24 +111,24 @@ namespace OGF {
         }
     }
     
-    void vtk_libinit::decrement_users() {
+    void GEOvtk_libinit::decrement_users() {
         count_--;
         if(count_ == 0) {
             terminate();
         }
     }
     
-    int vtk_libinit::count_ = 0;
+    int GEOvtk_libinit::count_ = 0;
 }
 
 // The initialization and termination functions
 // are also declared using C linkage in order to 
 // enable dynamic linking of modules.
 
-extern "C" void vtk_API OGF_vtk_initialize() {
-    OGF::vtk_libinit::increment_users();
+extern "C" void GEOvtk_API OGF_GEOvtk_initialize() {
+    OGF::GEOvtk_libinit::increment_users();
 }
 
-extern "C" void vtk_API OGF_vtk_terminate() {
-    OGF::vtk_libinit::decrement_users();
+extern "C" void GEOvtk_API OGF_GEOvtk_terminate() {
+    OGF::GEOvtk_libinit::decrement_users();
 }

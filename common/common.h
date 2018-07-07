@@ -39,21 +39,21 @@
  */
  
 
-#ifndef OGF_vtk_COMMON_COMMON
-#define OGF_vtk_COMMON_COMMON
+#ifndef OGF_GEOvtk_COMMON_COMMON
+#define OGF_GEOvtk_COMMON_COMMON
 
 #include <OGF/basic/common/common.h>
-#ifdef vtk_EXPORTS
-#   define vtk_API OGF_EXPORT
+#ifdef GEOvtk_EXPORTS
+#   define GEOvtk_API OGF_EXPORT
 #else
-#   define vtk_API OGF_IMPORT
+#   define GEOvtk_API OGF_IMPORT
 #endif
 
 namespace OGF {
-    static class vtk_API vtk_libinit {
+    static class GEOvtk_API GEOvtk_libinit {
     public:
-        vtk_libinit();
-        ~vtk_libinit();
+        GEOvtk_libinit();
+        ~GEOvtk_libinit();
         
         static void increment_users();
         static void decrement_users();
@@ -62,7 +62,11 @@ namespace OGF {
         static void initialize();
         static void terminate();
         static int count_;
-    } vtk_libinit_instance;
+    } GEOvtk_libinit_instance;
+}
+
+namespace GEOvtk {
+    using GEO::index_t;
 }
 
 #endif

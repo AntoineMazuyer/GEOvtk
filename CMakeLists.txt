@@ -1,5 +1,5 @@
 ##############################################################################
-# CMake file for vtk
+# CMake file for GEOvtk
 ##############################################################################
 
 # CMake 2.8.11 is required for 2 reasons:
@@ -8,7 +8,7 @@
 # - it is the version that supports the command string(TIMESTAMP ...)
 cmake_minimum_required(VERSION 2.8.11)
 
-project(vtk)
+project(GEOvtk)
 
 if(EXISTS ${CMAKE_SOURCE_DIR}/../../../../Vorpaline/trunk/)
    set(
@@ -56,10 +56,10 @@ set(
 aux_source_directories(SOURCES "Source Files\\common" common)
 aux_source_directories(SOURCES "Source Files\\algo" algo)
 aux_source_directories(SOURCES "Source Files\\commands" commands)
-gomgen(vtk)
+gomgen(GEOvtk)
 
-add_library(vtk ${SOURCES})
+add_library(GEOvtk ${SOURCES})
 
-target_link_libraries(vtk mesh scene_graph skin gom_gom gom)
-target_link_libraries(vtk renderer image basic)
-target_link_libraries(vtk geogram_gfx geogram)
+target_link_libraries(GEOvtk mesh scene_graph skin gom_gom gom)
+target_link_libraries(GEOvtk renderer image basic)
+target_link_libraries(GEOvtk geogram_gfx geogram)
